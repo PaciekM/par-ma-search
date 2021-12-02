@@ -1,0 +1,10 @@
+/* The component style is inserted here. */
+
+.header-container {
+  display: flex;
+}
+
+.ant-input-wrapper {
+  margin-top: 17px;
+  margin-left: 80px;
+}

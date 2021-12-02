@@ -1,0 +1,21 @@
+/* The component style is inserted here. */
+.ant-layout-content {
+  background: white;
+}
+
+.numberOfResults-container {
+  display: flex;
+}
+
+.numberOfResults-container h5 {
+  margin-top: 6px;
+}
+
+.ant-skeleton-paragraph li {
+  width: 100% !important;
+}
+
+.results-container {
+  display: flex;
+  width: 750px;
+}

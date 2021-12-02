@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "antd/dist/antd.css";
+import { Layout } from "antd";
+import { Footer } from "antd/lib/layout/layout";
+import ParMaHeader from "./components/ParMaHeader";
+import ParMaContent from "./components/ParMaContent";
+import { useData } from "./hooks/useData";
+import { useState } from "react";
 
-function App() {
+const App = () => {
+  const [inputValue, setInputValue] = useState<string>();
+  const { data, loading, numberOfResults } = useData({ inputValue });
+  const setValueCallback = (value: string) => {
+    setInputValue(value);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <ParMaHeader setValueCallback={setValueCallback} />
+      <ParMaContent
+        data={data}
+        loading={loading}
+        numberOfResults={numberOfResults}
+      />
+      <Footer
+        style={{
+          position: "absolute",
+          bottom: "0",
+          width: "100%",
+          textAlign: "center",
+        }}
+      >
+        @ParMaSearch 2021 Maciej Parfieńczyk and Kacper Makar
+      </Footer>
+    </Layout>
   );
-}
+};
 
 export default App;
