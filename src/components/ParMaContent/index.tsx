@@ -1,12 +1,17 @@
-import { Divider, Skeleton } from "antd";
+import { Divider, Pagination, Skeleton } from "antd";
 import { Content } from "antd/lib/layout/layout";
+import { Document, SearchType } from "../../models/models";
+import DataList from "../DataList";
 
 import "./styles.css";
 
 interface ParMaContentProps {
-  data?: string[];
+  data?: Document[];
   numberOfResults: number;
   loading: boolean;
+  page: number;
+  changePageCallback: (page: number) => void;
+  type: SearchType;
 }
 
 const emptySpace = "255px";
@@ -15,8 +20,9 @@ const ParMaContent = ({
   data,
   numberOfResults,
   loading,
+  page,
+  changePageCallback,
 }: ParMaContentProps) => {
-  console.log(loading);
   return (
     <Content>
       <Divider style={{ background: "black", margin: "0" }} />
@@ -25,8 +31,22 @@ const ParMaContent = ({
         <h5>Number of results: {numberOfResults} </h5>
       </div>
       <div className="results-container">
-        <div style={{ width: emptySpaceForSkeleton }}></div>
-        <Skeleton title={false} paragraph={{ rows: 12 }} loading={loading} />
+        <div
+          style={{ minWidth: loading ? emptySpaceForSkeleton : emptySpace }}
+        ></div>
+        {loading ? (
+          <Skeleton title={false} paragraph={{ rows: 18 }} loading={loading} />
+        ) : (
+          <div>
+            <DataList dataList={data} />
+            <Pagination
+              total={numberOfResults}
+              onChange={changePageCallback}
+              defaultCurrent={page}
+              style={{ margin: "40px 0" }}
+            />
+          </div>
+        )}
       </div>
     </Content>
   );
